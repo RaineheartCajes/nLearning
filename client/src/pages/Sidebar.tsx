@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdDashboard } from 'react-icons/md'; // Dashboard icon
-import { IoIosPeople } from 'react-icons/io'; // Users icon
-import { FaMoneyBillWave } from 'react-icons/fa'; // Loan icon (using a money-related icon)
-import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
+import { MdDashboard } from 'react-icons/md'; 
+import { IoIosPeople } from 'react-icons/io'; 
+import { FaMoneyBillWave } from 'react-icons/fa'; 
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();

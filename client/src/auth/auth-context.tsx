@@ -1,28 +1,32 @@
-import React, { createContext, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext} from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store'; 
+import { setSession, clearSession} from '../redux/session'; 
 
 type AuthContextType = {
   isAuthenticated: boolean;
-  login: () => void;
+  login: (token: string, username: string) => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem('formData'));
+  const dispatch = useDispatch();
+  const token = useSelector((state: RootState) => state.session.token);
+  const isAuthenticated = Boolean(token);
 
-  const login = () => {
-    setIsAuthenticated(true);
-  };
   
-  const logout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('currentSession');  
-    navigate('/'); 
+
+  const login = (token: string, username: string) => {
+    dispatch(setSession({ token, username }));
   };
 
+  const logout = () => {
+    dispatch(clearSession()); 
+    window.location.href = '/'; 
+  };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
